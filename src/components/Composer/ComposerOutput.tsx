@@ -164,16 +164,6 @@ export const ComposerOutput: FC<ComposerOutputProps> = (props) => {
           )}
         </div>
 
-        <div role="status" aria-live="polite" aria-atomic>
-          {error === "ROMANIZE_SERVICE_UNAVAILABLE" && (
-            <EndpointStatus
-              namespace="rigarashi"
-              endpoint="mt5-base-ainu-kana-atp"
-              onReady={onRefresh}
-            />
-          )}
-        </div>
-
         {hasTranslation && <Disclaimer />}
       </Flex>
 
