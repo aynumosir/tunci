@@ -15,11 +15,7 @@ export const Translation: FC<TranslationProps> = (props) => {
 
   const t = useTranslations("components.Composer.Translation");
 
-  if (
-    pending ||
-    error === "ROMANIZE_SERVICE_UNAVAILABLE" ||
-    error === "TRANSLATOR_SERVICE_UNAVAILABLE"
-  ) {
+  if (pending || error === "TRANSLATOR_SERVICE_UNAVAILABLE") {
     return <Text color="gray">{t("loading")}</Text>;
   }
 

@@ -2,7 +2,7 @@ import { to_kana } from "ainu-utils";
 
 import * as api from "@/api";
 import { Transcription } from "@/models/transcription";
-import { isKana, normalize } from "@/utils";
+import { normalize } from "@/utils";
 
 const MAX_LENGTH = 200;
 
@@ -23,7 +23,6 @@ export type TranslationParams = {
 
 export type ErrorType =
   | "INVALID_ARGUMENT"
-  | "ROMANIZE_SERVICE_UNAVAILABLE"
   | "TRANSLATOR_SERVICE_UNAVAILABLE"
   | "UNKNOWN";
 
@@ -91,25 +90,7 @@ export async function fetchTranslation(
   }
 
   try {
-    let translationSource: string;
-    try {
-      translationSource = await normalize(text, source);
-    } catch (error) {
-      if (isServiceUnavailableError(error)) {
-        return {
-          type: "error",
-          error: "ROMANIZE_SERVICE_UNAVAILABLE",
-        };
-      } else {
-        console.error(error);
-        return {
-          type: "error",
-          error: "UNKNOWN",
-          message:
-            "エラーが発生しました。しばらく待ってから再度お試しください。",
-        };
-      }
-    }
+    const translationSource = normalize(text);
 
     let translation: string;
     try {
@@ -150,17 +131,10 @@ export async function fetchTranslation(
     }
 
     if (source === "ain") {
-      if (isKana(text)) {
-        result.transcriptions.text = {
-          type: "latin",
-          text: translationSource,
-        };
-      } else {
-        result.transcriptions.text = {
-          type: "kana",
-          text: to_kana(translationSource),
-        };
-      }
+      result.transcriptions.text = {
+        type: "kana",
+        text: to_kana(translationSource),
+      };
     }
 
     return result;

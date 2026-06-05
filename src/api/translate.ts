@@ -46,7 +46,7 @@ export async function translate(
     prompt = `translate Ainu (${dialect}, ${pronoun}) to Japanese: ${input}`;
   }
 
-  assert(process.env.HF_MT_ENDPOINT, "HF_ENDPOINT is not set");
+  assert(process.env.HF_ENDPOINT, "HF_ENDPOINT is not set");
   assert(process.env.HF_TOKEN, "HF_TOKEN is not set");
 
   const parameters: Record<string, unknown> = {
@@ -59,7 +59,7 @@ export async function translate(
     parameters.do_sample = true;
   }
 
-  const response = await fetch(process.env.HF_MT_ENDPOINT, {
+  const response = await fetch(process.env.HF_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

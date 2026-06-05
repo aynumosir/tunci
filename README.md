@@ -14,7 +14,6 @@ _Tunci_ (トゥンチ) is a neural machine translator for the Ainu language — 
 ## Features
 
 - 🌍 **Translation**: Translate between Ainu and Japanese
-- 🔤 **Romanization**: Convert Katakana script to Latin script
 - 💬 **Conversation / Folklore**: You can select the context of the sentence to get a more accurate translation
 - 📍 **Dialects**: You can select a dialect from nine different regions
 - ✨ **Examples**: Get examples of how to use a word in a sentence
