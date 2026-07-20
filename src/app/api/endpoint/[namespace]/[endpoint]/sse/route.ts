@@ -12,6 +12,13 @@ export const dynamic = "force-dynamic";
 export async function GET(_: Request, context: Args): Promise<Response> {
   const params = await context.params;
 
+  if (
+    params.namespace !== "rigarashi" ||
+    params.endpoint !== "mt5-base-ainu-jey"
+  ) {
+    return new Response("Bad request", { status: 403 });
+  }
+
   const url = new URL(
     `/v2/endpoint/${params.namespace}/${params.endpoint}/sse`,
     BASE_URL,
